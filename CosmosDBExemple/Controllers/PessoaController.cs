@@ -1,3 +1,4 @@
+using CosmosDBExample.Models;
 using CosmosDBExemple.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,20 @@ namespace CosmosDBExemple.Controllers
         {
             var result = await _pessoasService.GetPessoas();
             return Ok(result);
+        }
+
+        [HttpGet("{name}")]
+        public async Task<IActionResult> Get(string name)
+        {
+            var result = await _pessoasService.GetPessoasPorNome(name);
+            return Ok(result);
+        }
+
+        [HttpPost()]
+        public async Task<IActionResult> Add(Pessoa pessoa)
+        {
+            await _pessoasService.AddPessoa(pessoa);
+            return Ok();
         }
     }
 }
